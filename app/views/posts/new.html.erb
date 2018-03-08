@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+
+
+<head>
+  <meta charset="utf-8">
+  <title>Chatter | New Post</title>
+  <link href='http://fonts.googleapis.com/css?family=Exo+2' rel='stylesheet' type='text/css'>
+  <link href="http://getbootstrap.com/2.3.2/assets/css/bootstrap.css" rel="stylesheet" /> 
+  <style type="text/css">
+
+  h1,h2,h3,h4,h5,h6,div,body,p,a,ul,li,ol,img,input,span{
+    margin: 0px;
+    padding: 0px;
+  }
+
+  body {  
+    font-family: 'Exo 2', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #FFFFFF;
+  }
+
+   .headerWrapper{
+    height:80px;
+    background-color: #C0C0C0;
+    width: 100%;
+    position: fixed;
+    box-shadow: 0px 1px 5px #4D4D4D;  
+  }
+
+  .logo {
+    float: left;
+    height: 44px;
+    width:266px;
+    display: block;
+    background: url("http://i.imgur.com/PgFoxN4.png") 0 0 no-repeat;
+    text-indent: -10000px;
+    margin: 18px 0px 18px 0px;  
+  }
+
+  .rightNav{
+    float: right;
+
+  }
+
+  .homeBtn{
+    float:left;
+    margin:15px 10px 0px 0px;
+  }
+
+  .newPost{
+    float:left;
+    margin:15px 10px 0px 0px;
+  }
+
+  .contentWrapper{
+    min-height: 534px;
+  }
+
+  .margin50px{
+    margin-bottom: 40px;
+    text-indent: 50px;
+  }
+
+  .footerWrapper{
+    height: 60px;
+    background: #444444;
+    padding-top: 40px;
+    -moz-box-shadow:   0 0 10px #000000;
+    -webkit-box-shadow:  0 0 10px #000000;
+    box-shadow:          0 0 10px #000000;
+  }
+
+  .copyright{
+    color:#FFFFFF;
+
+  }
+
+  .width500 {
+    width: 500px;
+  }
+
+  .postForm{
+    margin-top: 110px;
+    margin-bottom: 30px;
+  }
+
+  textarea.content {
+    height: 300px;
+    resize: vertical;
+  }
+
+  </style>
+  <script type="text/javascript">
+  function validateForm() {
+
+    var title = document.getElementById('title');
+    var content = document.getElementById('content');
+    var posted_by = document.getElementById('posted_by');
+    var email = document.getElementById('email');
+    
+    title.value = title.value.trim();
+    content.value = content.value.trim();
+    posted_by.value = posted_by.value.trim();
+    email.value = email.value.trim();
+
+    var errors = '';
+    var title_re = /[^a-z0-9 '",:;?|&()-]/i;
+    if(title.value == "" || title_re.test(title.value))
+      errors += "Allowed characters in the title are [a-z0-9 '\",:;?|&()-]\n"
+    if(title.value > 140)
+      errors += "Title should be less than 141 characters\n"
+    if(content.value.length < 1000)
+      errors += "The content should be minimum 1001 characters long\n"
+    var posted_by_re = /[^a-z ]/i
+    if(posted_by.value == "" || posted_by_re.test(posted_by.value))
+      errors += "Your name can contain alphabets only\n"
+    if(posted_by.value.length > 50)
+      errors += "Please enter name less than 51 characters\n"
+    var email_re = /^[a-z][a-z0-9_\-.]+@[a-z]{2,}[a-z0-9]*(?:\.[a-z]{2,})+$/i
+    if(email.value == "" || !email_re.test(email.value))
+      errors += "Please enter a valid email address\n"    
+    if(email.value.length > 50)
+      errors += "Please enter an email address under 51 characters\n"
+    if(errors == '')
+      return true;
+    else {
+      alert(errors);
+      return false;
+    }
+  }
+  </script>
+  
+</head> 
+
+
+
+
+<body> 
+
+
+  <!--The Header Wrapper Starts -->
+
+  <div class="headerWrapper">      
+    <div class = "container clearfix"> 
+
+      <a href="/" class="logo">Chatter Logo</a> 
+      <div class="rightNav">
+        <a href="/" class="btn btn-large btn-inverse homeBtn">Home</a>
+        <a href="/posts/new" class="btn btn-large newPost ">New Post</a>
+      </div>
+
+    </div> 
+
+
+
+  </div> 
+  <!--The Header Wrapper Ends -->
+
+  <!--The Content  Wrapper Ends -->
+  <div class="contentWrapper">
+    <div class = "container">
+      <div class=" span12"> 
+        <form action='/' class="form-horizontal postForm" onsubmit="return validateForm();" method="post"> 
+          <h2 class="margin50px"> Is there something on your mind you want to share ? </h2>
+          <div class="control-group">
+            <label class="control-label">Title:</label>
+            <div class="controls">
+              <input type="text" name="title" id="title" class="width500" placeholder="Enter the title for post"/>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label">Content:</label>
+            <div class="controls">
+              <textarea name="content" id="content" class="width500 content"></textarea>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label">Name:</label>
+            <div class="controls">
+              <input type="text" name="posted_by" id="posted_by" class="width500" placeholder="Enter your name"/>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label" for="inputEmail">Email</label>
+            <div class="controls">
+              <input type="text" name="email" id="email" class="width500" placeholder="Enter your Email"/>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <div class="controls">   
+              <button type="submit" class="btn btn-primary">Post</button>
+              <button type="reset" class="btn">Clear</button>
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+  <!--The Content Wrapper Ends -->
+
+  <!--footer Wrapper starts -->
+  <div class="footerWrapper">
+    <div class = "container"> 
+      <div class="row">
+        <div class= "span2 offset5 copyright">&copy; Chatter 2014</div>
+      </div> 
+    </div> 
+  </div>
+
+
+  <!-- footer wrapper ends --> 
+
+</body>
+</html>

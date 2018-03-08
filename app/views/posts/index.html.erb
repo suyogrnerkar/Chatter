@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+
+
+<head>
+  <meta charset="utf-8">
+  <title>Chatter | Home</title>
+  <link href="http://getbootstrap.com/2.3.2/assets/css/bootstrap.css" rel="stylesheet" /> 
+  <link href='http://fonts.googleapis.com/css?family=Exo+2' rel='stylesheet' type='text/css'>
+  
+  <style>
+  /*========== All Global declarations classess starts here ==========*/
+  h1,h2,h3,h4,h5,h6,div,body,p,a,ul,li,ol,img,input,span{
+    margin: 0px;
+    padding: 0px;
+  }
+
+  body {  
+    font-family: 'Exo 2', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #FFFFFF;
+  }
+
+  .headerWrapper{
+    height:80px;
+    background-color: #C0C0C0;
+    width: 100%;
+    position: fixed;
+    box-shadow: 0px 1px 5px #4D4D4D;  
+  }
+
+  .logo {
+    float: left;
+    height: 44px;
+    width:266px;
+    display: block;
+    background: url("http://i.imgur.com/PgFoxN4.png") 0 0 no-repeat;
+    text-indent: -10000px;
+    margin: 18px 0px 18px 0px;  
+  }
+  
+  .rightNav{
+    float: right;
+
+  }
+
+  .postDetails{
+    margin: 0px 0px 10px 0px;
+  }
+
+  .homeBtn{
+    float:left;
+    margin:15px 10px 0px 0px;
+  }
+
+  .newPost{
+    float:left;
+    margin:15px 10px 0px 0px;
+  }
+
+  .contentWrapper{
+    min-height: 600px;
+  }
+
+  .margin25pxRight{
+    margin-right: 25px;
+  }
+
+  .ulEdit{
+    margin-bottom: 30px;
+    margin-top: 130px;
+    list-style: none;
+    text-decoration: none;
+    word-wrap: break-word;
+  }
+
+  .contentWrapper ul li{
+    padding:20px;
+    margin : 0px 0px 20px 0px;
+    box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.14), 1px 1px 1px rgba(0, 0, 0, 0.30);
+    border-radius: 20px; 
+    text-align: justify;
+  }
+
+  .contentWrapper ul li p{
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+
+  .continueReading{
+    display: block;
+    float: right;
+  }
+
+  .postHeading{
+    font-size: 28px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #193553;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #D2CECE;
+  }
+
+  .postedByText{
+    font-family: "Arial";
+    color: #EE6D1F;
+  }
+
+  .postDate{
+    font-family: "Arial";
+    color:#3C0084;
+    line-height: 26px;
+  }
+
+  .date {
+    line-height: 26px;
+    font-size: 11px;
+  }
+
+  .email {
+    font-size: 13px;
+    display: block;
+    float: right;
+    font-weight: bold;
+  }
+
+  .email a{
+    font-family: "Arial";
+  }
+  
+  .postedBy{
+    font-size: 13px;
+    font-weight: bold;
+  }
+
+  .footerWrapper{
+    height: 60px;
+    background: #444444;
+    padding-top: 40px;
+    -moz-box-shadow: 0 0 10px #000000;
+    -webkit-box-shadow: 0 0 10px #000000;
+    box-shadow: 0 0 10px #000000;
+  }
+
+  .copyright{
+    color:#FFFFFF;
+  }
+  </style>
+
+</head> 
+
+<body> 
+
+  <!--The Header Wrapper Starts -->
+
+  <div class="headerWrapper">      
+    <div class = "container clearfix"> 
+
+      <a href="/" class="logo">Chatter Logo</a> 
+      <div class="rightNav">
+        <a href="/" class="btn btn-large btn-inverse homeBtn">Home</a>
+        <a href="/posts/new" class="btn btn-large newPost ">New Post</a>
+      </div>
+
+    </div> 
+
+
+
+  </div> 
+  <!--The Header Wrapper Ends -->
+
+
+  <!--The Content Wrapper Starts -->
+  <div class ="contentWrapper">
+    <div class="container">    
+      <div class="row">
+        <ul class="offset1 span10 ulEdit">
+          <% @posts.each do |post| %>
+          <li>
+            <h2 class="postHeading"> 
+              <%= post.title %>
+            </h2>
+            <div class="postDetails clearfix">
+              <span class="postedBy">Posted by : <span class="postedByText"> <%= post.posted_by %></span></span>
+              
+              <span class="email">E-mail: <a href= <%="/?email=#{post.email}"%> ><%= post.email %></a></span>
+            </div>
+            <p>
+              <%= post.content %>...
+            </p>
+            <div class="clearfix">
+              <span class="date">Date:<span class="postDate"> <%= post.posted_on %></span></span>
+              <a class="btn btn-small continueReading" href= <%="/post/details?id=#{post.id}"%>>Continue Reading ..</a>
+            </div>
+          </li>
+          <% end %>
+        </ul> 
+      </div>      
+    </div>
+  </div>
+  <!-- Content Wrapper ends here -->
+
+
+
+
+  <!--footer Wrapper starts -->
+  <div class="footerWrapper">
+    <div class = "container"> 
+      <div class="row">
+        <div class= "span2 offset5 copyright">&copy; Chatter 2014</div>
+      </div> 
+    </div> 
+  </div>
+
+
+  <!-- footer wrapper ends --> 
+
+</body>
+</html>

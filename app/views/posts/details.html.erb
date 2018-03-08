@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title><%= @post.title %></title>
+	<link href="http://getbootstrap.com/2.3.2/assets/css/bootstrap.css" rel="stylesheet" /> 
+	<link href='http://fonts.googleapis.com/css?family=Exo+2' rel='stylesheet' type='text/css'>
+	<style>
+	h1,h2,h3,h4,h5,h6,div,body,p,a,ul,li,ol,img,input,span,form{
+		margin: 0px;
+		padding: 0px;
+	}
+
+
+	body {  
+		font-family: 'Exo 2', sans-serif;
+		margin: 0;
+		padding: 0;
+		background-color: #FFFFFF;
+	}
+
+	 .headerWrapper{
+    height:80px;
+    background-color: #C0C0C0;
+    width: 100%;
+    position: fixed;
+    box-shadow: 0px 1px 5px #4D4D4D;  
+  }
+
+	.logo {
+		float: left;
+		height: 44px;
+		width:266px;
+		display: block;
+		background: url("http://i.imgur.com/PgFoxN4.png") 0 0 no-repeat;
+		text-indent: -10000px;
+		margin: 18px 0px 18px 0px;  
+	}
+
+	.rightNav{
+		float: right;
+	}
+
+	.homeBtn{
+		float:left;
+		margin:15px 10px 0px 0px;
+	}
+
+	.newPost{
+		float:left;
+		margin:15px 10px 0px 0px;
+	}
+
+	.margin50px{
+		margin-bottom: 50px;
+	}
+
+	.footerWrapper{
+		height: 60px;
+		background: #444444;
+		padding-top: 40px;
+		-moz-box-shadow:   0 0 10px #000000;
+		-webkit-box-shadow:  0 0 10px #000000;
+		box-shadow:          0 0 10px #000000;
+	}
+
+	.copyright{
+		color:#FFFFFF;
+	}
+
+	.postTitle{
+		font-size: 36px;
+		margin-bottom: 20px;
+		text-align: center;
+		padding-bottom: 10px;
+		border-bottom: 1px solid #D2CECE;
+		color: #193553;
+		word-wrap:break-word;
+	}
+
+	.postedBy{
+		font-family: "Arial";
+		color: #EE6D1F;
+	}
+
+	.postContent {
+		text-align: justify;
+		margin-bottom: 15px;
+		word-wrap: break-word;
+	}
+
+	.postedOn{		
+		color:#3C0084;
+	}
+
+	.postOwnerDetails{
+		margin-bottom: 15px;
+	}
+
+	li{
+		list-style: none;
+	}
+
+	.commentOwnerDetails{
+		float: right;
+	}
+
+	.addComment{
+		margin-bottom: 100px;
+	}
+
+	.addComment input{
+		float: right;
+	}
+
+	.addComment textarea{
+		height: 60px;
+		width: 926px;
+		resize: vertical;
+	}
+
+	.comments li p{
+		margin-bottom: 20px;
+		word-wrap: break-word;
+		text-align: justify;
+	}
+
+	.comenterName{
+		float: left;
+		margin: 0px 50px 0px 0px;
+	}
+
+	.comenterName div{
+		float: left;
+	}
+
+	.comenterName div:first-child{
+		margin: 0px 10px 0px 0px;
+		line-height: 30px;
+	}
+
+	.comenterEmail{
+		float: left;
+		margin: 0px 60px 0px 0px;
+	}
+
+	.comenterEmail div{
+		float: left;
+	}
+
+	.comenterEmail div:first-child{
+		margin: 0px 10px 0px 0px;
+		line-height: 30px;
+	}
+
+	.cmntBtns{
+		float: right;
+	}
+
+	.cmntBtns button{
+		float: left;
+	}
+
+	.cmntBtns button:first-child{
+		margin: 0px 10px 0px 0px;
+	}
+
+	.postedByText{
+		font-size: 13px;
+		font-weight: bold;
+	}
+
+	.postOwnerEmail{
+		display: block;
+		float: right;
+		font-size: 13px;
+		font-weight: bold;
+	}
+
+	.postOwnerEmail a {
+		font-family: "Arial";
+	}
+
+	.postedOnText{
+		line-height: 26px;
+		font-size: 11px;
+	}
+
+	.comments li{
+		padding: 20px;		
+		display: block; 
+		background: #ffffff;
+		border-bottom: 1px solid #E5E5E5;
+		color: #565656;
+	}
+
+	.comments li span{
+		font-size: 11px;
+		color: #8C8C8C;
+		margin-right: 15px;
+	}
+
+	.post{
+		margin: 120px 0px 50px 0px;  
+	}
+
+	.commentHeadingText{
+		text-align: center;
+		margin-bottom: 30px;
+		font-size: 28px;
+		line-height: 28px;
+		border-bottom: 1px solid #D2CECE;
+		padding-bottom: 15px;
+		color: #333333;
+	}
+
+	.comments{
+		margin-bottom: 50px;
+	}
+
+	</style>
+	
+	<script type="text/javascript">
+	function validateForm() {
+
+		var content = document.getElementById('content');
+		var posted_by = document.getElementById('posted_by');
+		var email = document.getElementById('email');
+
+		content.value = content.value.trim();
+		posted_by.value = posted_by.value.trim();
+		email.value = email.value.trim();
+
+		var errors = '';
+		if(content.value.length < 10)
+			errors += "The content should be minimum 11 characters long\n"
+		var posted_by_re = /[^a-z ]/i
+		if(posted_by.value == "" || posted_by_re.test(posted_by.value))
+			errors += "Your name can contain alphabets only\n"
+		if(posted_by.value.length > 50)
+			errors += "Please enter name less than 51 characters\n"
+		var email_re = /^[a-z][a-z0-9_\-.]+@[a-z]{2,}[a-z0-9]*(?:\.[a-z]{2,})+$/i
+		if(email.value == "" || !email_re.test(email.value))
+			errors += "Please enter a valid email address\n"    
+		if(email.value.length > 50)
+			errors += "Please enter an email address under 51 characters\n"
+		if(errors == '')
+			return true;
+		else {
+			alert(errors);
+			return false;
+		}
+	}
+	</script>
+</head>
+
+<body>	
+
+	<div class="headerWrapper">      
+		<div class = "container clearfix"> 
+
+			<a href="/" class="logo">Chatter Logo</a> 
+			<div class="rightNav">
+				<a href="/" class="btn btn-large btn-inverse homeBtn">Home</a>
+				<a href="/posts/new" class="btn btn-large newPost ">New Post</a>
+			</div>
+
+		</div> 
+	</div> 
+
+	<div class="contentWrapper">
+		<div class="container">
+			<div class="post">
+				<h2 class="postTitle"> <%= @post.title %> </h2>	
+
+				<div class="postOwnerDetails clearfix"> 
+					<span class="postedByText">Posted By: <span class="postedBy"> <%= @post.posted_by %></span> </span>
+					<span class="postOwnerEmail">E-mail: <a href= <%="/?email=#{@post.email}"%>><%= @post.email %></a></span>
+				</div>
+
+				<p class="postContent"> 
+					<%= @post.content %>
+				</p>
+				<span class="postedOnText">Posted On:<span class="postedOn"> <%= @post.posted_on %></span></span>
+			</div>
+
+			<% unless @comments.empty? %>
+			<h4 class="commentHeadingText">Comments</h4> 
+			<% end %>
+
+			<ul class="comments">
+				<% @comments.each do |comment| %>
+				<li>			
+					<p> <%= comment.content %> </p>
+					<span>Posted By: <%= comment.posted_by %></span>					
+					<span>Email: <%= comment.email %></span> 
+					<span>Posted On: <%= comment.posted_on %></span>
+				</li>
+				<% end %>
+			</ul>
+
+			<form class="addComment clearfix" action='/comments/create' method='post' onsubmit="return validateForm()">
+				<input type="hidden" value=<%= @params['id'] %> name="post_id" >
+
+				Post a comment:
+				<textarea id="content" name="content"> </textarea>
+				<div class="comenterName">
+					<div>Your name: </div>
+					<input id="posted_by" type="text" name="posted_by" placeholder="Enter your name...">
+				</div>
+				<div class="comenterEmail">
+					<div>Email ID: </div>
+					<input id="email" type="text" name="email" placeholder="Enter your email...">
+				</div>
+				<div class="cmntBtns">
+					<button type="submit" class="btn btn-primary">Post</button>
+					<button class="btn" type="reset">Clear</button>		
+				</div>									
+			</form>
+
+		</div>			
+	</div>
+
+	<div class="footerWrapper">
+		<div class = "container"> 
+			<div class="row">
+				<div class= "span2 offset5 copyright">&copy; Chatter 2014</div>
+			</div> 
+		</div> 
+	</div>	
+
+
+</body>
+</html>
